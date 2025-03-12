@@ -1,0 +1,37 @@
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 2025
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  server:
+    build: ./server
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./server:/app
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_USER: postgres
+      DB_PASSWORD: 2025
+      DB_NAME: mydb
+
+  client:
+    build: ./client
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./client:/app
+    depends_on:
+      - server
+
+volumes:
+  postgres_data:

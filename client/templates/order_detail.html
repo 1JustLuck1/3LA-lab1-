@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Детали заказа #{{ order_id }}</h1>
+
+    <h2>Состав заказа:</h2>
+    <ul>
+        <li>
+            Книга {{ OrderItems.Name }} - Количество: {{ OrderItems.Quantity }}
+        </li>
+    </ul>
+
+{% endblock %}
